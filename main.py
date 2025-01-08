@@ -2,7 +2,7 @@ import argparse
 import re
 import sys
 
-available_texts = ['tck', 'trafik', 'medeni']
+available_texts = ['tck', 'trafik', 'medeni', 'borc']
 texts_directory = 'texts/'
 
 def remove_newlines(text):
@@ -32,7 +32,9 @@ def main():
         # The text until the next madde will be matched.
         # This introduces edge cases for madde at the end of secions which needs to be handled
         # dash and en-dash are included
-        match = re.search(rf"([^\n]+)\nMadde {args.madde}\s*[-–]\s*.*?(?=\n[^\n]+\nMadde \d+-|\Z)", text, re.DOTALL).group()
+        match = re.search(rf"([^\n]+)\nMadde {args.madde}\s*[-–]\s*.*?(?=\n[^\n]+\nMadde \d+-|\Z)",
+                          text,
+                          flags=re.DOTALL | re.IGNORECASE).group()
         title = match.split('\n')[0]
         madde_no = f"Madde {args.madde}"
 
