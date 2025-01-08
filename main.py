@@ -19,6 +19,7 @@ def main():
 
     if args.kanun not in available_texts:
         print(f"İstenen kanun {args.kanun}, veritabanında yok.")
+        print(f"Veritabanındaki kanunlar: {', '.join(available_texts)}")
         sys.exit(1)
 
     with open(texts_directory + args.kanun + '.txt', 'r') as kanun_file:
