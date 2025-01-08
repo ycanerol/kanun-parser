@@ -31,7 +31,8 @@ def main():
         # Capture the madde, including the previous line with the title.
         # The text until the next madde will be matched.
         # This introduces edge cases for madde at the end of secions which needs to be handled
-        match = re.search(rf"([^\n]+)\nMadde {args.madde}-.*?(?=\n[^\n]+\nMadde \d+-|\Z)", text, re.DOTALL).group()
+        # dash and en-dash are included
+        match = re.search(rf"([^\n]+)\nMadde {args.madde}\s*[-–]\s*.*?(?=\n[^\n]+\nMadde \d+-|\Z)", text, re.DOTALL).group()
         title = match.split('\n')[0]
         madde_no = f"Madde {args.madde}"
 
