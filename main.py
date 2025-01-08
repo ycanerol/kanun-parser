@@ -35,6 +35,12 @@ def main():
         title = match.split('\n')[0]
         madde_no = f"Madde {args.madde}"
 
+        # Check if this is the final madde of a section
+        # Section headers are all caps
+        section_end_check = re.search(r"^[A-ZÇĞİÖŞÜ\s]+$", match, re.MULTILINE)
+        if section_end_check:
+            match = match[:section_end_check.start()]
+
         if not args.fikra:
             # Strip the "Madde X- " text if we are not extracting the fikra, to avoid repetition
             match = match[match.find('-')+2:]
