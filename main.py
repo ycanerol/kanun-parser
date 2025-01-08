@@ -43,6 +43,12 @@ def main():
         except AttributeError as e:
             print(f"İstenen fıkra {args.fikra}, maddede bulunamadı.")
             sys.exit(1)
+        if args.bend:
+            try:
+                match = re.search().group()
+            except AttributeError as e:
+                print(f"İstenen bend {args.bend}, fıkrada bulunamadı.")
+                sys.exit(1)
     print(title, madde_no, match, sep='\n')
 
 if __name__ == "__main__":
