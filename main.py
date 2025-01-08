@@ -60,6 +60,9 @@ def main():
             except AttributeError as e:
                 print(f"İstenen bend {args.bend}, fıkrada bulunamadı.")
                 sys.exit(1)
+    # Add a newline to the end in case it does not exit
+    if not match.endswith('\n'):
+        match += '\n'
     print(title, madde_no, match, sep='\n', end='')
 
 if __name__ == "__main__":
