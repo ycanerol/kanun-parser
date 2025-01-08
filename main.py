@@ -28,10 +28,15 @@ def main():
     text = ''.join(text)
 
     try:
+        # Capture the madde, including the previous line with the title.
+        # The text until the next madde will be matched.
+        # This introduces edge cases for madde at the end of secions which needs to be handled
         match = re.search(rf"([^\n]+)\nMadde {args.madde}-.*?(?=\n[^\n]+\nMadde \d+-|\Z)", text, re.DOTALL).group()
         title = match.split('\n')[0]
         madde_no = f"Madde {args.madde}"
+
         if not args.fikra:
+            # Strip the "Madde X- " text if we are not extracting the fikra, to avoid repetition
             match = match[match.find('-')+2:]
     except AttributeError as e:
         print(f"İstenen madde {args.madde}, kanunda bulunamadı.")
