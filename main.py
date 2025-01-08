@@ -54,7 +54,7 @@ def main():
             except AttributeError as e:
                 print(f"İstenen bend {args.bend}, fıkrada bulunamadı.")
                 sys.exit(1)
-    print(title, madde_no, match, sep='\n')
+    print(title, madde_no, match, sep='\n', end='')
 
 if __name__ == "__main__":
     main()
