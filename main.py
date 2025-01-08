@@ -28,10 +28,11 @@ def main():
     text = ''.join(text)
 
     try:
-        match = re.search(rf"([^\n]+)\nMadde {args.madde}-.*?(?=\n[^\n]+\nMadde \d+-|\Z)", text, re.DOTALL)
-        title = match.group().split('\n')[0]
+        match = re.search(rf"([^\n]+)\nMadde {args.madde}-.*?(?=\n[^\n]+\nMadde \d+-|\Z)", text, re.DOTALL).group()
+        title = match.split('\n')[0]
         madde_no = f"Madde {args.madde}"
-        # print(text[madde_start:madde_end])
+        if not args.fikra:
+            match = match[match.find('-')+2:]
     except AttributeError as e:
         print(f"İstenen madde {args.madde}, kanunda bulunamadı.")
         sys.exit(1)
@@ -42,6 +43,7 @@ def main():
         except AttributeError as e:
             print(f"İstenen fıkra {args.fikra}, maddede bulunamadı.")
             sys.exit(1)
+    print(title, madde_no, match, sep='\n')
 
 if __name__ == "__main__":
     main()
