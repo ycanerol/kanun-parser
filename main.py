@@ -1,5 +1,6 @@
 import argparse
 import re
+import sys
 
 available_texts = ['tck', 'trafik']
 texts_directory = 'texts/'
@@ -17,7 +18,9 @@ def main():
     args = parser.parse_args()
 
     if args.kanun not in available_texts:
-        raise ValueError(f"İstenen kanun {args.kanun} veritabanında yok.")
+        print(f"İstenen kanun {args.kanun}, veritabanında yok.")
+        sys.exit(1)
+
     with open(texts_directory + args.kanun + '.txt', 'r') as kanun_file:
         text = kanun_file.readlines()
     text = remove_newlines(text)
@@ -30,11 +33,15 @@ def main():
         madde_no = f"Madde {args.madde}"
         # print(text[madde_start:madde_end])
     except AttributeError as e:
-        raise ValueError(f"İstenen madde {args.madde} kanunda bulunamadı.")
+        print(f"İstenen madde {args.madde}, kanunda bulunamadı.")
+        sys.exit(1)
 
     if args.fikra:
-        match = re.search(rf"\({args.fikra}\) .*?(?=\n\(\d+\) |\Z)", match.group(), re.DOTALL)
-    print(title, madde_no, match.group(), sep='\n')
+        try:
+            match = re.search(rf"\({args.fikra}\) .*?(?=\n\(\d+\) |\Z)", match, re.DOTALL).group()
+        except AttributeError as e:
+            print(f"İstenen fıkra {args.fikra}, maddede bulunamadı.")
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()
