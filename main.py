@@ -2,7 +2,7 @@ import argparse
 import re
 import sys
 
-available_texts = ['tck', 'trafik', 'medeni', 'borc']
+available_texts = ['tck', 'trafik', 'medeni', 'borc', 'icra']
 texts_directory = 'texts/'
 
 def remove_newlines(text):
