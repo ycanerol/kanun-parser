@@ -47,7 +47,6 @@ def main():
 
         if not args.fikra:
             # Strip the "Madde X- " text if we are not extracting the fikra, to avoid repetition
-            # match = match[re.search(r"^(.*?)(?=\s*[–-](?![^()]*\)))(.*)$", match).start():]
             match_end = re.search(rf"([^\n]+)\nMadde {args.madde}\s*[-–]\s*", match, re.DOTALL | re.I).end()
             match = match[match_end:]
     except AttributeError as e:
